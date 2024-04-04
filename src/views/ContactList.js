@@ -12,7 +12,7 @@ import {
   Col,
 } from "react-bootstrap";
 
-function TableList() {
+function ContactList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -28,14 +28,18 @@ function TableList() {
     }
   };
 
-  const handleBanToggle = (id) => {
-    const updatedData = data.map(item => {
-      if (item.id === id) {
-        item.status = item.status === "Banned" ? "Unbanned" : "Banned";
-      }
-      return item;
-    });
-    setData(updatedData);
+  const handleSoftDelete = async (id) => {
+    try {
+      await axios.delete(`#/${id}`);
+      const updatedData = data.filter(item => item.id !== id);
+      setData(updatedData);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
+
+  const handleUpdate = (id) => {
+    console.log("Update item with id:", id);
   };
 
   return (
@@ -55,12 +59,12 @@ function TableList() {
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>
-                      <th className="border-0">Username</th>
-                      <th className="border-0">Fullname</th>
                       <th className="border-0">Email</th>
-                      <th className="border-0">Role</th>
-                      <th className="border-0">Image</th>
-                      <th className="border-0">Status</th>
+                      <th className="border-0">Phone</th>
+                      <th className="border-0">Website</th>
+                      <th className="border-0">Open Time</th>
+                      <th className="border-0">Close Time</th>
+                      <th className="border-0">Place Title</th>
                       <th className="border-0">Action</th>
                     </tr>
                   </thead>
@@ -68,15 +72,18 @@ function TableList() {
                     {data.map((item) => (
                       <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td>{item.userName}</td>
-                        <td>{item.fullName}</td>
                         <td>{item.email}</td>
-                        <td>{item.role}</td>
-                        <td>{item.image}</td>
-                        <td>{item.status}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.website}</td>
+                        <td>{item.openTime}</td>
+                        <td>{item.closeTime}</td>
+                        <td>{item.placeTitle}</td>
                         <td>
-                          <Button variant="danger" onClick={() => handleBanToggle(item.id)}>
-                            {item.status === "Banned" ? "Unban" : "Ban"}
+                          <Button variant="danger" onClick={() => handleSoftDelete(item.id)}>
+                            DELETE
+                          </Button>{" "}
+                          <Button variant="primary" onClick={() => handleUpdate(item.id)}>
+                            UPDATE
                           </Button>
                         </td>
                       </tr>
@@ -92,4 +99,4 @@ function TableList() {
   );
 }
 
-export default TableList;
+export default ContactList;

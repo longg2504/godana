@@ -23,6 +23,8 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
+import ContactList from "views/ContactList";
+import UserList from "views/UserList";
 
 const dashboardRoutes = [
   {
@@ -52,6 +54,20 @@ const dashboardRoutes = [
     name: "Table List",
     icon: "nc-icon nc-notes",
     component: TableList,
+    layout: "/admin"
+  },
+  {
+    path: "/contact",
+    name: "Contact List",
+    icon: "nc-icon nc-notes",
+    component: ContactList,
+    layout: "/admin"
+  },
+  {
+    path: "/user",
+    name: "User List",
+    icon: "nc-icon nc-notes",
+    component: UserList,
     layout: "/admin"
   },
   {

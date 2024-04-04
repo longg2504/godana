@@ -12,7 +12,7 @@ import {
   Col,
 } from "react-bootstrap";
 
-function TableList() {
+function UserList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -92,4 +92,4 @@ function TableList() {
   );
 }
 
-export default TableList;
+export default UserList;
